@@ -5,8 +5,8 @@ export default function Dashboard() {
 
   const totalProducts = products.length
 
-  const totalValue = products.reduce(
-    (sum: number, p: any) => sum + p.price * p.quantity,
+  const totalQuantity = products.reduce(
+    (sum: number, p: any) => sum + (typeof p.quantity === "number" ? p.quantity : 0),
     0
   )
 
