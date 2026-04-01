@@ -1,0 +1,20 @@
+// กำหนด Client
+generator client {
+  provider = "prisma-client-js"
+}
+
+// ตั้งค่าการเชื่อมต่อ Supabase
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")      // สำหรับการใช้งานทั่วไป (Port 6543)
+  directUrl = env("DIRECT_URL")        // สำหรับการสร้างตาราง (Port 5432)
+}
+
+// สร้างตาราง Product ตามโจทย์ Lab
+model Product {
+  id       String @id @default(uuid()) // UUID
+  name     String                      // ชื่อสินค้า
+  sku      String @unique              // รหัสสินค้า (ห้ามซ้ำ)
+  quantity Int    @default(0)           // จำนวนสินค้า
+  zone     String                      // โซนจัดเก็บ
+}
