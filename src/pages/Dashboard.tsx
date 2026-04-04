@@ -5,8 +5,8 @@ export default function Dashboard() {
 
   const totalProducts = products.length
 
-  const totalValue = products.reduce(
-    (sum: number, p: any) => sum + p.price * p.quantity,
+  const totalStock = products.reduce(
+    (sum: number, p: any) => sum + (p.quantity ?? 0),
     0
   )
 
@@ -61,15 +61,15 @@ export default function Dashboard() {
             </div>
           </div>
 
-          {/* Total Value */}
+          {/* Total Stock */}
           <div className="bg-gradient-to-br from-purple-900 to-purple-800 rounded-2xl p-8 shadow-2xl border border-purple-600 hover:border-purple-400 transition-all hover:shadow-purple-500/20">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-purple-300 text-sm font-semibold mb-2">มูลค่ารวม</p>
-                <p className="text-3xl font-bold text-white">{totalValue.toLocaleString()}</p>
-                <p className="text-purple-400 text-xs mt-2">บาท</p>
+                <p className="text-purple-300 text-sm font-semibold mb-2">สต็อกรวม</p>
+                <p className="text-3xl font-bold text-white">{totalStock.toLocaleString()}</p>
+                <p className="text-purple-400 text-xs mt-2">หน่วย</p>
               </div>
-              <div className="text-5xl">💰</div>
+              <div className="text-5xl">📊</div>
             </div>
           </div>
         </div>
@@ -111,13 +111,13 @@ export default function Dashboard() {
               <p className="text-gray-400 text-sm mb-4">สรุปตัวเลข</p>
               <div className="space-y-4">
                 <div>
-                  <p className="text-gray-400 text-sm">มูลค่าทั้งหมด</p>
-                  <p className="text-3xl font-bold text-purple-400">{totalValue.toLocaleString()} บาท</p>
+                  <p className="text-gray-400 text-sm">สต็อกรวมทั้งหมด</p>
+                  <p className="text-3xl font-bold text-purple-400">{totalStock.toLocaleString()} หน่วย</p>
                 </div>
                 <div>
                   <p className="text-gray-400 text-sm">เฉลี่ยต่อรายการ</p>
                   <p className="text-2xl font-bold text-blue-400">
-                    {totalProducts > 0 ? Math.round(totalValue / totalProducts).toLocaleString() : 0} บาท
+                    {totalProducts > 0 ? Math.round(totalStock / totalProducts).toLocaleString() : 0} หน่วย
                   </p>
                 </div>
               </div>

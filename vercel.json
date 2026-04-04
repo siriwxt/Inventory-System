@@ -1,0 +1,10 @@
+{
+  "buildCommand": "prisma generate && vite build",
+  "outputDirectory": "dist",
+  "framework": "vite",
+  "rewrites": [
+    { "source": "/inventory/:id/adjust", "destination": "/api/inventory/:id/adjust" },
+    { "source": "/inventory/:id", "destination": "/api/inventory/:id" },
+    { "source": "/inventory", "destination": "/api/inventory" }
+  ]
+}
