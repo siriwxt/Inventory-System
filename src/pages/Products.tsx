@@ -2,7 +2,7 @@ import { useState } from "react"
 import { useInventoryContext } from "../context/InventoryContext"
 
 export default function Products() {
-  const { products, addProduct, updateQuantity, deleteProduct } = useInventoryContext()
+  const { products, loading, error, addProduct, updateQuantity, deleteProduct } = useInventoryContext()
 
   const [name, setName] = useState("")
   const [sku, setSku] = useState("")
@@ -79,7 +79,15 @@ export default function Products() {
         </div>
 
         <div className="overflow-x-auto">
-          {filtered.length === 0 ? (
+          {loading ? (
+            <div className="text-center py-12">
+              <p className="text-gray-400 text-xl">กำลังโหลดสินค้า...</p>
+            </div>
+          ) : error ? (
+            <div className="text-center py-12">
+              <p className="text-red-400 text-xl">เกิดข้อผิดพลาด: {error}</p>
+            </div>
+          ) : filtered.length === 0 ? (
             <div className="text-center py-12">
               <p className="text-gray-400 text-xl">ไม่พบสินค้า</p>
             </div>

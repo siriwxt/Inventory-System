@@ -7,6 +7,21 @@ Currently, two official plugins are available:
 - [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
 - [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
 
+## Running the App
+
+1. Install dependencies:
+   ```bash
+   npm install
+   ```
+2. Start the backend API:
+   ```bash
+   npm run server
+   ```
+3. In another terminal, start the Vite frontend:
+   ```bash
+   npm run dev
+   ```
+
 ## React Compiler
 
 The React Compiler is enabled on this template. See [this documentation](https://react.dev/learn/react-compiler) for more information.

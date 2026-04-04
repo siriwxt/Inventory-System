@@ -1,16 +1,38 @@
 import { useState, useEffect, useCallback } from "react"
 import type { Product } from "../types"
 
-const API_BASE = "http://localhost:3000/inventory";
+const API_BASE = "/inventory";
 
 export function useInventory() {
   const [products, setProducts] = useState<Product[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
   // Lab 1: Fetch Data
   const refresh = useCallback(async () => {
-    const res = await fetch(API_BASE);
-    const data = await res.json();
-    setProducts(data);
+    setLoading(true);
+    setError(null);
+
+    try {
+      const res = await fetch(API_BASE);
+      if (!res.ok) {
+        const err = await res.json().catch(() => ({}));
+        throw new Error(err?.error || `HTTP ${res.status}`);
+      }
+
+      const data = await res.json();
+      if (!Array.isArray(data)) {
+        throw new Error("Unexpected response from API");
+      }
+
+      setProducts(data);
+    } catch (err: any) {
+      console.error("Inventory fetch failed:", err);
+      setProducts([]);
+      setError(err?.message || "เกิดข้อผิดพลาดในการโหลดข้อมูล");
+    } finally {
+      setLoading(false);
+    }
   }, []);
 
   useEffect(() => { refresh(); }, [refresh]);
@@ -47,5 +69,5 @@ export function useInventory() {
     }
   };
 
-  return { products, addProduct, updateQuantity, deleteProduct, refresh };
+  return { products, loading, error, addProduct, updateQuantity, deleteProduct, refresh };
 }
